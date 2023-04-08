@@ -48,6 +48,9 @@ services:
   vortex:
     image: ghcr.io/revoltchat/vortex:0.3.0-alpha.1
     env_file: .env
+    ports:
+      - 10000-10100:10000-10100
+      - 10000-10100:10000-10100/udp
     depends_on:
       - database
       - redis
