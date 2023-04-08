@@ -28,8 +28,8 @@ services:
     restart: always
     env_file: .env
     ports:
-      - "80:80"
-      - "443:443"
+      - "6080:80"
+      - "6443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./data/caddy-data:/data
@@ -38,6 +38,15 @@ services:
   # API server (delta)
   api:
     image: ghcr.io/revoltchat/server:20220715-1
+    env_file: .env
+    depends_on:
+      - database
+      - redis
+      - caddy
+    restart: always
+
+  vortex:
+    image: ghcr.io/revoltchat/vortex:0.3.0-alpha.1
     env_file: .env
     depends_on:
       - database
